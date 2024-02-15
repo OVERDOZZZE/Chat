@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App</title>
+</head>
+<body>
+    <h1>Welcome to the Chat App</h1>
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send</button>
+    </form>
+    {% else %}
+    <p>Please <a href="{% url 'login' %}">login</a> to send messages.</p>
+    {% endif %}
+    <div>
+        {% for message in messages %}
+        <div style="float: right; clear: both; margin-top: 10px;">
+            <p>{{ message.owner.username }}</p>
+            <p>{{ message.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
